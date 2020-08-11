@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{d7c15176-ab2a-430b-a6e0-c0353e1be0a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX11">
+      <UniqueIdentifier>{12cefe09-7d1e-43c7-a4b3-c4b7f7b24664}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX11\Adapter">
+      <UniqueIdentifier>{62bdde1c-ecf1-4c66-9fef-c19e7350de48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App">
+      <UniqueIdentifier>{5a70f194-0efc-424b-8872-3db6718abfe6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ErrorLogger.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="StringConverter.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="AdapterReader.cpp">
+      <Filter>DirectX11\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowMessageMap.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ErrorLogger.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="ReleaseProcess.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="StringConverter.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="AdapterReader.h">
+      <Filter>DirectX11\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowMessageMap.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
