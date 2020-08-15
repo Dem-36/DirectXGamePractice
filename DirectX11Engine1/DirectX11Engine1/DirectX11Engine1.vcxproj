@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -165,13 +165,17 @@
     <ClCompile Include="ErrorLogger.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="StringConverter.cpp" />
+    <ClCompile Include="Window.cpp" />
     <ClCompile Include="WindowMessageMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdapterReader.h" />
+    <ClInclude Include="DisableUnusedDefine.h" />
     <ClInclude Include="ErrorLogger.h" />
     <ClInclude Include="ReleaseProcess.h" />
+    <ClInclude Include="Singleton.h" />
     <ClInclude Include="StringConverter.h" />
+    <ClInclude Include="Window.h" />
     <ClInclude Include="WindowMessageMap.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

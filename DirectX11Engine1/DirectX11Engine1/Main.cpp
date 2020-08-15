@@ -1,60 +1,4 @@
-#include<Windows.h>
-#include"WindowMessageMap.h"
-#include<sstream>
-
-//ウィンドウプロシージャ
-//送られてくるメッセージによってふるまう
-LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
-
-	//lparam,wparamの情報をログ表示する
-	static WindowMessageMap mm;
-	OutputDebugString(mm(msg, lParam, wParam).c_str());
-
-	switch (msg)
-	{
-		//windowが閉じられたとき
-		case WM_CLOSE:
-		{
-			//msgのwparamに引数の数値が格納される
-			PostQuitMessage(0);
-			break;
-		}
-		//キーが押されたとき
-		case WM_KEYDOWN:
-		{
-			//wParamにキー情報が入っている
-			if (wParam == 'F') {
-				SetWindowText(hwnd, "Respects");
-			}
-			break;
-		}
-		case WM_KEYUP:
-		{
-			if (wParam == 'F') {
-				SetWindowText(hwnd, "Dangerfield");
-			}
-			break;
-		}
-		case WM_CHAR:
-		{
-			static std::string title;
-			//wParamに文字情報が入っているので、titleの末尾に追加していく
-			title.push_back((char)wParam);
-			SetWindowText(hwnd, title.c_str());
-			break;
-		}
-		case WM_LBUTTONDOWN:
-		{
-			//lParamにはウィンドウ上でのマウス座標が格納されている
-			POINTS pt = MAKEPOINTS(lParam);
-			std::ostringstream oss;
-			oss << pt.x << "::" << pt.y;
-			SetWindowText(hwnd, oss.str().c_str());
-		}
-	}
-
-	return DefWindowProc(hwnd, msg, wParam, lParam);
-}
+#include"Window.h"
 
 int CALLBACK wWinMain(
 	HINSTANCE hInstance,
@@ -62,41 +6,7 @@ int CALLBACK wWinMain(
 	LPWSTR lpCmdLine,
 	int nCmdShow)
 {
-	const auto pClassName = "DirectXGame"; //ウィンドウクラス名
-	//register window class
-	WNDCLASSEX wc = { 0 };
-	wc.cbSize = sizeof(wc);           //構造体のサイズ
-	wc.style = CS_HREDRAW | CS_VREDRAW; //ウィンドウのスタイル
-	wc.lpfnWndProc = WndProc;   //ウィンドウメッセージ処理のコールバック関数のポインタ
-	wc.cbClsExtra = 0;
-	wc.cbWndExtra = 0;
-	wc.hInstance = hInstance;         //ウィンドウプロシージャがあるインスタンスハンドル
-	wc.hIcon = nullptr;               //アイコン
-	wc.hCursor = nullptr;             //マウスカーソル
-	wc.hbrBackground = nullptr;       //背景色
-	wc.lpszClassName = pClassName;    //ウィンドウクラス名
-	wc.hIconSm = nullptr;             //小さいサイズのアイコン
-
-	//ウィンドウクラスを登録する
-	RegisterClassEx(&wc);
-	//create window
-	HWND hWnd = CreateWindowEx(
-		0,                  //dwStyleの拡張
-		pClassName,         //ウィンドウクラス名
-		"Happy hard Window",//ウィンドウタイトル
-		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,//dwStyle
-		200,                //X
-		200,                //Y
-		640,                //width
-		460,                //height
-		nullptr,
-		nullptr,
-		hInstance,
-		nullptr
-	);
-
-	//show the damn window
-	ShowWindow(hWnd, SW_SHOW);
+	Window wnd(800, 300, "Donkey Fart Box");
 
 	//message pump
 	MSG msg;
@@ -109,10 +19,8 @@ int CALLBACK wWinMain(
 		DispatchMessage(&msg);
 	}
 
-	if (gResult == -1)
-		return  -1;
-	else {
-		return msg.wParam;
+	if (gResult == -1) {
+		return -1;
 	}
 
 	return 0;

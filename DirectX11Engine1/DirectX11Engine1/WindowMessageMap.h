@@ -9,6 +9,7 @@ class WindowMessageMap
 {
 public:
 	WindowMessageMap();
+	//–ß‚è’lstring ()•Ï”()‚ÅŒÄ‚Î‚ê‚é
 	std::string operator()(DWORD msg, LPARAM lp, WPARAM wp);
 private:
 	std::unordered_map<DWORD, std::string> map;

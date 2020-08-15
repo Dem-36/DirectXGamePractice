@@ -13,6 +13,9 @@
     <Filter Include="App">
       <UniqueIdentifier>{5a70f194-0efc-424b-8872-3db6718abfe6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="App\Window">
+      <UniqueIdentifier>{9c4df2fb-4766-4b04-81c7-03898898b45d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ErrorLogger.cpp">
@@ -30,6 +33,9 @@
     <ClCompile Include="WindowMessageMap.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>App\Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ErrorLogger.h">
@@ -45,6 +51,12 @@
       <Filter>DirectX11\Adapter</Filter>
     </ClInclude>
     <ClInclude Include="WindowMessageMap.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>App\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="DisableUnusedDefine.h">
       <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
