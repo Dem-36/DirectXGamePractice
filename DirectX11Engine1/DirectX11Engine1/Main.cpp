@@ -6,23 +6,29 @@ int CALLBACK wWinMain(
 	LPWSTR lpCmdLine,
 	int nCmdShow)
 {
+
 	try {
 		Window wnd(800, 300, "Donkey Fart Box");
 
 		//message pump
 		MSG msg;
-		bool gResult;
+		BOOL gResult;
 		//メッセージキューからメッセージを取り出す
-		while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0) {
+		while ((gResult = GetMessage(&msg, nullptr, 0, 0))) {
 			//キー入力メッセージを文字メッセージに変換する
 			TranslateMessage(&msg);
 			//メッセージをウィンドウプロシージャに送信する
 			DispatchMessage(&msg);
+			if (wnd.keyboard.KeyIsPressed(VK_SPACE)) {
+				MessageBox(nullptr, "Something happon!", "Space Key Was Press", MB_OK | MB_ICONEXCLAMATION);
+			}
 		}
 
 		if (gResult == -1) {
-			return -1;
+			throw WND_LAST_EXCEPT();
 		}
+
+		return msg.wParam;
 	}
 	//自作エラー内容表示
 	catch (const WinException& e) {

@@ -42,16 +42,13 @@ Window::WindowClass::WindowClass() noexcept
 Window::WindowClass::~WindowClass()
 {
 	//ウィンドウクラスの登録を解除し、メモリ開放を行う
-	UnregisterClass(GetWindowClassName(), GetInstance());
+	UnregisterClass(wndClassName, GetInstance());
 }
 
 //---Window---
 
 Window::Window(int width, int height, const char* name)
 {
-	this->width = width;
-	this->height = height;
-
 	//windowのサイズ等を設定
 	RECT rect;
 	rect.left = 100;
@@ -85,7 +82,7 @@ Window::Window(int width, int height, const char* name)
 		nullptr,
 		nullptr,
 		WindowClass::GetInstance(),
-		nullptr
+		this
 	);
 
 	if (hWnd == nullptr) {
@@ -137,50 +134,27 @@ LRESULT Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
 	//lparam,wparamの情報をログ表示する
-	static WindowMessageMap mm;
-	OutputDebugString(mm(msg, lParam, wParam).c_str());
-
+	//static WindowMessageMap mm;
+	//OutputDebugString(mm(msg, lParam, wParam).c_str());
 	switch (msg)
 	{
 		//windowが閉じられたとき
 	case WM_CLOSE:
-	{
 		//msgのwparamに引数の数値が格納される
 		PostQuitMessage(0);
 		break;
-	}
-	//キーが押されたとき
+	case WM_KILLFOCUS:
+		keyboard.ClearState();
+		break;
 	case WM_KEYDOWN:
-	{
-		//wParamにキー情報が入っている
-		if (wParam == 'F') {
-			SetWindowText(hWnd, "Respects");
-		}
+		keyboard.OnKeyPressed(static_cast<unsigned char>(wParam));
 		break;
-	}
 	case WM_KEYUP:
-	{
-		if (wParam == 'F') {
-			SetWindowText(hWnd, "Dangerfield");
-		}
+		keyboard.OnKeyReleased(static_cast<unsigned char>(wParam));
 		break;
-	}
 	case WM_CHAR:
-	{
-		static std::string title;
-		//wParamに文字情報が入っているので、titleの末尾に追加していく
-		title.push_back((char)wParam);
-		SetWindowText(hWnd, title.c_str());
+		keyboard.OnChar(static_cast<unsigned char>(wParam));
 		break;
-	}
-	case WM_LBUTTONDOWN:
-	{
-		//lParamにはウィンドウ上でのマウス座標が格納されている
-		POINTS pt = MAKEPOINTS(lParam);
-		std::ostringstream oss;
-		oss << pt.x << "::" << pt.y;
-		SetWindowText(hWnd, oss.str().c_str());
-	}
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);

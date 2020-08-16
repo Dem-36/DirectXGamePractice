@@ -19,6 +19,9 @@
     <Filter Include="Utility\Error">
       <UniqueIdentifier>{9399635b-3e09-4eb9-8597-316a4d68bef9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility\Input">
+      <UniqueIdentifier>{f62a52ff-fef8-47f5-839c-a7682da5b1ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StringConverter.cpp">
@@ -44,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="WindowException.cpp">
       <Filter>Utility\Error</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>Utility\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="WindowException.h">
       <Filter>Utility\Error</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>Utility\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
