@@ -47,7 +47,7 @@ Window::WindowClass::~WindowClass()
 
 //---Window---
 
-Window::Window(int width, int height, const char* name) noexcept
+Window::Window(int width, int height, const char* name)
 {
 	this->width = width;
 	this->height = height;
@@ -61,22 +61,36 @@ Window::Window(int width, int height, const char* name) noexcept
 
 	//必要なクライアント長方形のサイズに基づいて、ウィンドウ長方形の必要なサイズを計算します。
 	//次に、ウィンドウの四角形をCreateWindow関数に渡して、クライアント領域が目的のサイズであるウィンドウを作成できます。
-	AdjustWindowRect(&rect, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE);
+	BOOL check = AdjustWindowRect(&rect, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE);
+	if (!check) {
+		throw WND_LAST_EXCEPT();
+	}
+
+	//テスト 自作エラークラスでエラーを起こす
+	//throw WND_EXCEPT(ERROR_ARENA_TRASHED);
+	//基底クラスでエラーを起こす
+	//throw std::runtime_error("butts butts buuuuuuuuuttssssssssss");
+	//謎エラーを飛ばす
+	//throw 424324;
 
 	hWnd = CreateWindowEx(
 		0,                  //dwStyleの拡張
 		WindowClass::GetWindowClassName(),         //ウィンドウクラス名
 		name,                                      //ウィンドウタイトル
 		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,//dwStyle
-		200,                //X
-		200,                //Y
-		640,                //width
-		460,                //height
+		CW_USEDEFAULT,                //X
+		CW_USEDEFAULT,                //Y
+		rect.right - rect.left,                //width
+		rect.bottom - rect.top,                //height
 		nullptr,
 		nullptr,
 		WindowClass::GetInstance(),
 		nullptr
 	);
+
+	if (hWnd == nullptr) {
+		throw WND_LAST_EXCEPT();
+	}
 
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
 }

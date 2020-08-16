@@ -2,6 +2,7 @@
 #define _WINDOW_H_
 
 #include"DisableUnusedDefine.h"
+#include"WindowException.h"
 
 class Window
 {
@@ -24,7 +25,7 @@ private:
 	};
 
 public:
-	Window(int width, int height, const char* name)noexcept;
+	Window(int width, int height, const char* name);
 	~Window();
 	Window(const Window&) = delete;
 	Window& operator=(const Window&) = delete;
@@ -37,5 +38,9 @@ private:
 	int height;
 	HWND hWnd;
 };
+
+#define WND_EXCEPT(hr) WindowException(__LINE__,__FILE__,hr)
+//ç≈å„Ç…î≠ê∂ÇµÇΩÉGÉâÅ[Çï‘Ç∑
+#define WND_LAST_EXCEPT() WindowException(__LINE__,__FILE__,GetLastError())
 
 #endif
