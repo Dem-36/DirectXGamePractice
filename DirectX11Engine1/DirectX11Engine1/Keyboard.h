@@ -20,7 +20,7 @@ public:
 		KeyType type;
 		unsigned char code;
 	public:
-		Event()
+		Event()noexcept
 			:type(KeyType::Invalid), code(0u) {}
 		Event(KeyType type, unsigned char code)noexcept
 			:type(type), code(code) {}

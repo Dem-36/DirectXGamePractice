@@ -147,9 +147,13 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		keyboard.ClearState();
 		break;
 	case WM_KEYDOWN:
-		keyboard.OnKeyPressed(static_cast<unsigned char>(wParam));
+	case WM_SYSKEYDOWN:
+		if (!(lParam & 0x40000000) || keyboard.AutoRepeatIsEnabled()) {
+			keyboard.OnKeyPressed(static_cast<unsigned char>(wParam));
+		}
 		break;
 	case WM_KEYUP:
+	case WM_SYSKEYUP:
 		keyboard.OnKeyReleased(static_cast<unsigned char>(wParam));
 		break;
 	case WM_CHAR:

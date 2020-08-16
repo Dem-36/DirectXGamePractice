@@ -19,9 +19,6 @@ int CALLBACK wWinMain(
 			TranslateMessage(&msg);
 			//メッセージをウィンドウプロシージャに送信する
 			DispatchMessage(&msg);
-			if (wnd.keyboard.KeyIsPressed(VK_SPACE)) {
-				MessageBox(nullptr, "Something happon!", "Space Key Was Press", MB_OK | MB_ICONEXCLAMATION);
-			}
 		}
 
 		if (gResult == -1) {
