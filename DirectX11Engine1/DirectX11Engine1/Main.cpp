@@ -1,4 +1,5 @@
 #include"Window.h"
+#include<sstream>
 
 int CALLBACK wWinMain(
 	HINSTANCE hInstance,
@@ -19,6 +20,46 @@ int CALLBACK wWinMain(
 			TranslateMessage(&msg);
 			//メッセージをウィンドウプロシージャに送信する
 			DispatchMessage(&msg);
+			static int i = 0;
+			//マウスのイベントが空でないなら
+			while (!wnd.mouse.IsEmpty()) {
+				////先頭のイベントを取得する
+				const auto e = wnd.mouse.Read();
+				////イベントがMoveなら
+				//if (e.GetType() == Mouse::Event::MouseType::Move) {
+				//	std::ostringstream oss;
+				//	oss << "Mouse Position: (" << e.GetX() << "," << e.GetY() << ")";
+				//	wnd.SetTitle(oss.str());
+				//}
+				switch (e.GetType()) {
+				/*case Mouse::Event::MouseType::Leave:
+					wnd.SetTitle("Gone!");
+					break;
+				case Mouse::Event::MouseType::Move:
+				{
+					std::ostringstream oss;
+					oss << "Mouse moved to (" << e.GetX() << "," << e.GetY() << ")";
+					wnd.SetTitle(oss.str());
+					break;
+				}*/
+				case Mouse::Event::MouseType::WheelUp:
+					i++;
+					{
+						std::ostringstream oss;
+						oss << "Up: " << i;
+						wnd.SetTitle(oss.str());
+						break;
+					}
+				case Mouse::Event::MouseType::WheelDown:
+					i--;
+					{
+						std::ostringstream oss;
+						oss << "Down: " << i;
+						wnd.SetTitle(oss.str());
+						break;
+					}
+				}
+			}
 		}
 
 		if (gResult == -1) {

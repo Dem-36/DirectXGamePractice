@@ -165,6 +165,7 @@
     <ClCompile Include="ErrorLogger.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="StringConverter.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WindowException.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="DisableUnusedDefine.h" />
     <ClInclude Include="ErrorLogger.h" />
     <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="ReleaseProcess.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="StringConverter.h" />

@@ -48,6 +48,7 @@ Window::WindowClass::~WindowClass()
 //---Window---
 
 Window::Window(int width, int height, const char* name)
+	:width(width),height(height)
 {
 	//windowのサイズ等を設定
 	RECT rect;
@@ -58,8 +59,7 @@ Window::Window(int width, int height, const char* name)
 
 	//必要なクライアント長方形のサイズに基づいて、ウィンドウ長方形の必要なサイズを計算します。
 	//次に、ウィンドウの四角形をCreateWindow関数に渡して、クライアント領域が目的のサイズであるウィンドウを作成できます。
-	BOOL check = AdjustWindowRect(&rect, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE);
-	if (!check) {
+	if (!AdjustWindowRect(&rect, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE)) {
 		throw WND_LAST_EXCEPT();
 	}
 
@@ -99,6 +99,13 @@ Window::~Window()
 	}
 }
 
+void Window::SetTitle(const std::string& title)
+{
+	if (SetWindowText(hWnd, title.c_str()) == 0) {
+		throw WND_LAST_EXCEPT();
+	}
+}
+
 LRESULT Window::HandleMsgSetUp(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
 	//CreateWindow()から渡された作成パラメーターを使用して、WinAPI側でウィンドウクラスポインターを格納します
@@ -134,8 +141,8 @@ LRESULT Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
 	//lparam,wparamの情報をログ表示する
-	//static WindowMessageMap mm;
-	//OutputDebugString(mm(msg, lParam, wParam).c_str());
+	static WindowMessageMap mm;
+	OutputDebugString(mm(msg, lParam, wParam).c_str());
 	switch (msg)
 	{
 		//windowが閉じられたとき
@@ -143,6 +150,8 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		//msgのwparamに引数の数値が格納される
 		PostQuitMessage(0);
 		break;
+	//---キーボード処理---
+	//wParamにキーボードが入っている
 	case WM_KILLFOCUS:
 		keyboard.ClearState();
 		break;
@@ -159,6 +168,71 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	case WM_CHAR:
 		keyboard.OnChar(static_cast<unsigned char>(wParam));
 		break;
+	//------------
+	//---マウス処理--- 
+	//lParamにマウスの座標が入っている wParamにはマウスホイールの移動量?が入っている
+	case WM_MOUSEMOVE:
+	{		
+		const POINTS pt = MAKEPOINTS(lParam);
+
+		//マウスカーソルが画面内にいるとき
+		if (pt.x >= 0 && pt.x < width && pt.y >= 0 && pt.y < height) {
+			mouse.OnMouseMove(pt.x, pt.y);
+			//前までウィンドウ外にいたら
+			if (!mouse.IsInWindow()) {
+				//マウスを再度ウィンドウにキャプチャできるようにする
+				SetCapture(hWnd);
+				//マウスがウィンドウ内に戻ってきた通知
+				mouse.OnMouseEnter();
+			}
+		}
+		else {
+			//マウスの左、または右が押されていたら
+			if (wParam & (MK_LBUTTON | MK_RBUTTON)) {
+				mouse.OnMouseMove(pt.x, pt.y);
+			}
+			//画面外にいて、かつなにも押されてないなら
+			else {
+				//マウスキャプチャを開放する
+				ReleaseCapture();
+				mouse.OnMouseLeave();
+			}
+		}
+		break;
+	}
+	case WM_LBUTTONDOWN:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnLeftPressed(pt.x, pt.y);
+		break;
+	}
+	case WM_RBUTTONDOWN:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnRightPressed(pt.x, pt.y);
+		break;
+	}
+	case WM_LBUTTONUP:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnLeftReleased(pt.x, pt.y);
+		break;
+	}
+	case WM_RBUTTONUP:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnRightReleased(pt.x, pt.y);
+		break;
+	}
+	case WM_MOUSEWHEEL:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		//ホイール値を取得(前なら120,後ろなら-120を返す？)
+		short wheel = GET_WHEEL_DELTA_WPARAM(wParam);
+		mouse.OnWheelDelta(pt.x, pt.y, wheel);
+		break;
+	}
+	//------------
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);

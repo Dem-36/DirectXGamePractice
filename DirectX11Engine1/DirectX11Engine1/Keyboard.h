@@ -6,8 +6,6 @@
 
 class Keyboard
 {
-	//フレンドクラスの設定(Windowクラス内でKeyboardクラスのprivateが扱える)
-	friend class Window;
 public:
 	class Event {
 	public:
@@ -85,5 +83,8 @@ private:
 	std::bitset<nKeys> keyStates;
 	std::queue<Event> keyBuffer;
 	std::queue<char>charBuffer;
+private:
+	//フレンドクラスの設定(Windowクラス内でKeyboardクラスのprivateが扱える)
+	friend class Window;
 };
 #endif

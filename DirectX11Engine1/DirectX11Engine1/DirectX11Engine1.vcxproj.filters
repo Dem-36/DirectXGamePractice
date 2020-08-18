@@ -51,6 +51,9 @@
     <ClCompile Include="Keyboard.cpp">
       <Filter>Utility\Input</Filter>
     </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>Utility\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ReleaseProcess.h">
@@ -84,6 +87,9 @@
       <Filter>Utility\Error</Filter>
     </ClInclude>
     <ClInclude Include="Keyboard.h">
+      <Filter>Utility\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
       <Filter>Utility\Input</Filter>
     </ClInclude>
   </ItemGroup>
