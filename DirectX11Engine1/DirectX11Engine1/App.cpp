@@ -9,24 +9,15 @@ App::App()
 
 int App::Go()
 {
-	//message pump
-	MSG msg;
-	BOOL gResult;
-	//メッセージキューからメッセージを取り出す
-	while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0) {
-		//キー入力メッセージを文字メッセージに変換する
-		TranslateMessage(&msg);
-		//メッセージをウィンドウプロシージャに送信する
-		DispatchMessage(&msg);
-
+	while (true) {
+		//保留中のすべてのメッセージを処理しますが、新しいメッセージをブロックしません
+		if (const auto ecode = Window::ProcessMessages()) {
+			//ecodeに値がある場合は終了しているので終了コードを返す
+			//ProcessMessagesでWM_QUITが呼ばれているため
+			return *ecode;
+		}
 		DoFrame();
 	}
-
-	if (gResult == -1) {
-		throw WND_LAST_EXCEPT();
-	}
-
-	return msg.wParam;
 }
 
 void App::DoFrame()

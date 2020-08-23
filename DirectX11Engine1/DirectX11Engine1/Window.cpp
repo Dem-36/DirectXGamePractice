@@ -106,6 +106,27 @@ void Window::SetTitle(const std::string& title)
 	}
 }
 
+std::optional<int> Window::ProcessMessages()
+{
+	MSG msg;
+	//ウィンドウメッセージが来ているかを確認する
+	while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
+
+		//PeekMessageがこれを通知しないため、終了を確認する
+		if (msg.message == WM_QUIT) {
+			return msg.wParam;
+		}
+
+		//キー入力メッセージを文字メッセージに変換する
+		TranslateMessage(&msg);
+		//メッセージをウィンドウプロシージャに送信する
+		DispatchMessage(&msg);
+	}
+
+	//アプリを終了しない場合は空のoptionalを返します
+	return {};
+}
+
 LRESULT Window::HandleMsgSetUp(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
 	//CreateWindow()から渡された作成パラメーターを使用して、WinAPI側でウィンドウクラスポインターを格納します
