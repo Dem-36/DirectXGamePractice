@@ -25,6 +25,7 @@
 #define NONLS
 #define NOMEMMGR
 #define NOMETAFILE
+#define NOMINMAX
 #define NOOPENFILE
 #define NOSCROLL
 #define NOSERVICE
@@ -41,8 +42,6 @@
 #define NOPROXYSTUB
 #define NOIMAGE
 #define NOTAPE
-
-#define NOMINMAX
 
 #define STRICT
 
