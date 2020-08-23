@@ -1,5 +1,4 @@
-#include"Window.h"
-#include<sstream>
+#include"App.h"
 
 int CALLBACK wWinMain(
 	HINSTANCE hInstance,
@@ -7,26 +6,8 @@ int CALLBACK wWinMain(
 	LPWSTR lpCmdLine,
 	int nCmdShow)
 {
-
 	try {
-		Window wnd(800, 300, "Donkey Fart Box");
-
-		//message pump
-		MSG msg;
-		BOOL gResult;
-		//メッセージキューからメッセージを取り出す
-		while ((gResult = GetMessage(&msg, nullptr, 0, 0))) {
-			//キー入力メッセージを文字メッセージに変換する
-			TranslateMessage(&msg);
-			//メッセージをウィンドウプロシージャに送信する
-			DispatchMessage(&msg);
-		}
-
-		if (gResult == -1) {
-			throw WND_LAST_EXCEPT();
-		}
-
-		return msg.wParam;
+		return App{}.Go();
 	}
 	//自作エラー内容表示
 	catch (const WinException& e) {

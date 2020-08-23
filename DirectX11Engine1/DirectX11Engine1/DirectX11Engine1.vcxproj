@@ -162,6 +162,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AdapterReader.cpp" />
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="DxTimer.cpp" />
     <ClCompile Include="ErrorLogger.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -174,7 +176,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdapterReader.h" />
+    <ClInclude Include="App.h" />
     <ClInclude Include="DisableUnusedDefine.h" />
+    <ClInclude Include="DxTimer.h" />
     <ClInclude Include="ErrorLogger.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Mouse.h" />
