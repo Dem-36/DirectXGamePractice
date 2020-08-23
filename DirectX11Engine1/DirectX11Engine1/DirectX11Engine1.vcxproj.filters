@@ -57,7 +57,12 @@
     <ClCompile Include="App.cpp">
       <Filter>App</Filter>
     </ClCompile>
-    <ClCompile Include="DxTimer.cpp" />
+    <ClCompile Include="DxTimer.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>DirectX11</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ReleaseProcess.h">
@@ -99,6 +104,11 @@
     <ClInclude Include="App.h">
       <Filter>App</Filter>
     </ClInclude>
-    <ClInclude Include="DxTimer.h" />
+    <ClInclude Include="DxTimer.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>DirectX11</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

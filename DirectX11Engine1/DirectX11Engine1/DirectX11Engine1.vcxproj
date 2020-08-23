@@ -165,6 +165,7 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="DxTimer.cpp" />
     <ClCompile Include="ErrorLogger.cpp" />
+    <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mouse.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="DisableUnusedDefine.h" />
     <ClInclude Include="DxTimer.h" />
     <ClInclude Include="ErrorLogger.h" />
+    <ClInclude Include="Graphics.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="ReleaseProcess.h" />
