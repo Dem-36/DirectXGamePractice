@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\C++\Chili\DirectX11Engine1\DirectX11Engine1\Scripts\Library;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -162,40 +162,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AdapterReader.cpp" />
-    <ClCompile Include="App.cpp" />
-    <ClCompile Include="DxTimer.cpp" />
-    <ClCompile Include="ErrorLogger.cpp" />
-    <ClCompile Include="GraphicsException.cpp" />
-    <ClCompile Include="Graphics.cpp" />
-    <ClCompile Include="Keyboard.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="src\AdapterReader.cpp" />
+    <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\DxTimer.cpp" />
+    <ClCompile Include="src\ErrorLogger.cpp" />
+    <ClCompile Include="src\GraphicsException.cpp" />
+    <ClCompile Include="src\Graphics.cpp" />
+    <ClCompile Include="src\Keyboard.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Mouse.cpp" />
     <ClCompile Include="src\dxerr\dxerr.cpp" />
-    <ClCompile Include="StringConverter.cpp" />
-    <ClCompile Include="Window.cpp" />
-    <ClCompile Include="WindowException.cpp" />
-    <ClCompile Include="WindowMessageMap.cpp" />
-    <ClCompile Include="WinException.cpp" />
+    <ClCompile Include="src\StringConverter.cpp" />
+    <ClCompile Include="src\Window.cpp" />
+    <ClCompile Include="src\WindowException.cpp" />
+    <ClCompile Include="src\WindowMessageMap.cpp" />
+    <ClCompile Include="src\WinException.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AdapterReader.h" />
-    <ClInclude Include="App.h" />
-    <ClInclude Include="DisableUnusedDefine.h" />
-    <ClInclude Include="DxTimer.h" />
-    <ClInclude Include="ErrorLogger.h" />
-    <ClInclude Include="GraphicsException.h" />
-    <ClInclude Include="Graphics.h" />
-    <ClInclude Include="Keyboard.h" />
-    <ClInclude Include="Mouse.h" />
-    <ClInclude Include="ReleaseProcess.h" />
-    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="src\AdapterReader.h" />
+    <ClInclude Include="src\App.h" />
+    <ClInclude Include="src\DisableUnusedDefine.h" />
+    <ClInclude Include="src\DxTimer.h" />
+    <ClInclude Include="src\ErrorLogger.h" />
+    <ClInclude Include="src\GraphicsException.h" />
+    <ClInclude Include="src\Graphics.h" />
+    <ClInclude Include="src\Keyboard.h" />
+    <ClInclude Include="src\Mouse.h" />
+    <ClInclude Include="src\ReleaseProcess.h" />
+    <ClInclude Include="src\Singleton.h" />
     <ClInclude Include="src\dxerr\dxerr.h" />
-    <ClInclude Include="StringConverter.h" />
-    <ClInclude Include="Window.h" />
-    <ClInclude Include="WindowException.h" />
-    <ClInclude Include="WindowMessageMap.h" />
-    <ClInclude Include="WinException.h" />
+    <ClInclude Include="src\StringConverter.h" />
+    <ClInclude Include="src\Window.h" />
+    <ClInclude Include="src\WindowException.h" />
+    <ClInclude Include="src\WindowMessageMap.h" />
+    <ClInclude Include="src\WinException.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\dxerr\DXGetErrorDescription.inl" />

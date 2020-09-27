@@ -1,6 +1,6 @@
 #include "GraphicsException.h"
-#include"src\dxerr\dxerr.h"
 #include<sstream>
+#include"dxerr\dxerr.h"
 
 GraphicsException::HrException::HrException(int line, const char* file, HRESULT hr)noexcept
 	:Exception(line, file), hr(hr) {

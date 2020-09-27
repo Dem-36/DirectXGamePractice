@@ -27,103 +27,103 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="StringConverter.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="AdapterReader.cpp">
-      <Filter>DirectX11\Adapter</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>App</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowMessageMap.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>App\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="ErrorLogger.cpp">
-      <Filter>Utility\Error</Filter>
-    </ClCompile>
-    <ClCompile Include="WinException.cpp">
-      <Filter>Utility\Error</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowException.cpp">
-      <Filter>Utility\Error</Filter>
-    </ClCompile>
-    <ClCompile Include="Keyboard.cpp">
-      <Filter>Utility\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Mouse.cpp">
-      <Filter>Utility\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="App.cpp">
-      <Filter>App</Filter>
-    </ClCompile>
-    <ClCompile Include="DxTimer.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics.cpp">
-      <Filter>DirectX11</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsException.cpp">
-      <Filter>Utility\Error</Filter>
-    </ClCompile>
     <ClCompile Include="src\dxerr\dxerr.cpp">
       <Filter>Utility\DxError</Filter>
     </ClCompile>
+    <ClCompile Include="src\AdapterReader.cpp">
+      <Filter>DirectX11\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="src\App.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DxTimer.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ErrorLogger.cpp">
+      <Filter>Utility\Error</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics.cpp">
+      <Filter>DirectX11</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GraphicsException.cpp">
+      <Filter>Utility\Error</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Keyboard.cpp">
+      <Filter>Utility\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Main.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mouse.cpp">
+      <Filter>Utility\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StringConverter.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window.cpp">
+      <Filter>App\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowException.cpp">
+      <Filter>Utility\Error</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowMessageMap.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WinException.cpp">
+      <Filter>Utility\Error</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ReleaseProcess.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="StringConverter.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="AdapterReader.h">
-      <Filter>DirectX11\Adapter</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowMessageMap.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>App\Window</Filter>
-    </ClInclude>
-    <ClInclude Include="DisableUnusedDefine.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Singleton.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="ErrorLogger.h">
-      <Filter>Utility\Error</Filter>
-    </ClInclude>
-    <ClInclude Include="WinException.h">
-      <Filter>Utility\Error</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowException.h">
-      <Filter>Utility\Error</Filter>
-    </ClInclude>
-    <ClInclude Include="Keyboard.h">
-      <Filter>Utility\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Mouse.h">
-      <Filter>Utility\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="App.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="DxTimer.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics.h">
-      <Filter>DirectX11</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsException.h">
-      <Filter>Utility\Error</Filter>
-    </ClInclude>
     <ClInclude Include="src\dxerr\dxerr.h">
       <Filter>Utility\DxError</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AdapterReader.h">
+      <Filter>DirectX11\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\App.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DisableUnusedDefine.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DxTimer.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ErrorLogger.h">
+      <Filter>Utility\Error</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics.h">
+      <Filter>DirectX11</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GraphicsException.h">
+      <Filter>Utility\Error</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Keyboard.h">
+      <Filter>Utility\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mouse.h">
+      <Filter>Utility\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ReleaseProcess.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Singleton.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\StringConverter.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window.h">
+      <Filter>App\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WindowException.h">
+      <Filter>Utility\Error</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WindowMessageMap.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WinException.h">
+      <Filter>Utility\Error</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
