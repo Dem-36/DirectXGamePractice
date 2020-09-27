@@ -81,3 +81,8 @@ void Graphics::EndFrame()
 {
 	pSwapChain->Present(1u, 0u);
 }
+
+void Graphics::ClearBuffer(float r, float g, float b) noexcept {
+	const float color[] = { r,g,b,1.0f };
+	pDeviceContext->ClearRenderTargetView(pRTV, color);
+}

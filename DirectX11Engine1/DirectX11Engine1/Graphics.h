@@ -14,10 +14,7 @@ public:
 	void EndFrame();
 
 	//画面のクリア
-	void ClearBuffer(float r, float g, float b)noexcept {
-		const float color[] = { r,g,b,1.0f };
-		pDeviceContext->ClearRenderTargetView(pRTV, color);
-	}
+	void ClearBuffer(float r, float g, float b)noexcept;
 private:
 	//DirectX11の機能にアクセスするのに必要なデバイス
 	ID3D11Device* pDevice = nullptr;
