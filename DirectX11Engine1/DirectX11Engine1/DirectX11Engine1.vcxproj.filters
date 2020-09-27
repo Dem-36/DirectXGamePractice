@@ -72,6 +72,9 @@
     <ClCompile Include="src\WinException.cpp">
       <Filter>Utility\Error</Filter>
     </ClCompile>
+    <ClCompile Include="src\DxgiInfoManager.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\dxerr\dxerr.h">
@@ -124,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="src\WinException.h">
       <Filter>Utility\Error</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DxgiInfoManager.h">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

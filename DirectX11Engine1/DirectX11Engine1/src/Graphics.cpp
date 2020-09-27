@@ -3,6 +3,22 @@
 #include"AdapterReader.h"
 #include<vector>
 
+
+//hrはこのマクロを使用前にローカルとして宣言しておく
+#define GFX_EXCEPT_NOINFO(hr) GraphicsException::HrException(__LINE__,__FILE__,(hr) )
+#define GFX_THROW_NOINFO(hrcall) if(FAILED( hr = (hrcall) ) ) throw GraphicsException::HrException( __LINE__,__FILE__,hr )
+
+#ifndef NDEBUG
+#define GFX_EXCEPT(hr) GraphicsException::HrException(__LINE__,__FILE__,(hr),infoManager.GetMessages() )
+#define GFX_THROW_INFO(hrcall) infoManager.Set(); if(FAILED( hr = (hrcall) ) ) throw GFX_EXCEPT(hr)
+#define GFX_DEVICE_REMOVED_EXCEPT(hr) GraphicsException::DeviceRemovedException(__LINE__,__FILE__,(hr),infoManager.GetMessages() )
+#else
+#define GFX_EXCEPT(hr) GraphicsException::HrException(__LINE__,__FILE__,(hr) )
+#define GFX_THROW_INFO(hrcall) GFX_THROW_NOINFO(hrcall)
+#define GFX_DEVICE_REMOVED_EXCEPT(hr) GraphicsException::DeviceRemovedException(__LINE__,__FILE__,(hr) )
+#endif
+
+
 Graphics::Graphics(HWND hWnd)
 {
 	DXGI_SWAP_CHAIN_DESC sd = {};
@@ -24,13 +40,18 @@ Graphics::Graphics(HWND hWnd)
 	sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	sd.Flags = 0;
 
+	UINT swapCreateFlags = 0u;
+#ifndef NDEBUG
+	swapCreateFlags |= D3D11_CREATE_DEVICE_DEBUG;
+#endif
+
 	HRESULT hr;
 
-	GFX_THROW_FAILED(D3D11CreateDeviceAndSwapChain(
+	GFX_THROW_INFO(D3D11CreateDeviceAndSwapChain(
 		nullptr,
 		D3D_DRIVER_TYPE_HARDWARE,
 		nullptr,
-		0,
+		swapCreateFlags,
 		nullptr,
 		0,
 		D3D11_SDK_VERSION,
@@ -40,14 +61,11 @@ Graphics::Graphics(HWND hWnd)
 		nullptr,
 		&pDeviceContext
 	));
+
 	//スワップチェーンのテクスチャをサブリソースにアクセスする
 	ID3D11Resource* pBackBuffer = nullptr;
-	GFX_THROW_FAILED(pSwapChain->GetBuffer(0, __uuidof(ID3D11Resource), reinterpret_cast<void**>(&pBackBuffer)));
-	GFX_THROW_FAILED(pDevice->CreateRenderTargetView(
-		pBackBuffer,
-		nullptr,
-		&pRTV
-	));
+	GFX_THROW_INFO(pSwapChain->GetBuffer(0, __uuidof(ID3D11Resource), reinterpret_cast<void**>(&pBackBuffer)));
+	GFX_THROW_INFO(pDevice->CreateRenderTargetView(nullptr,nullptr,&pRTV));
 	//解放
 	SafeRelease(pBackBuffer);
 }
@@ -63,12 +81,16 @@ Graphics::~Graphics()
 void Graphics::EndFrame()
 {
 	HRESULT hr;
+#ifndef NDEBUG
+	infoManager.Set();
+#endif
+
 	if (FAILED(hr = pSwapChain->Present(1u, 0u))) {
 		if (hr == DXGI_ERROR_DEVICE_REMOVED) {
 			throw GFX_DEVICE_REMOVED_EXCEPT(pDevice->GetDeviceRemovedReason());
 		}
 		else {
-			GFX_THROW_FAILED(hr);
+			throw GFX_EXCEPT(hr);
 		}
 	}
 }

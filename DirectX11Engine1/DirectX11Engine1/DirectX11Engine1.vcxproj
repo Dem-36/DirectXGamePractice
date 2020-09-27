@@ -79,6 +79,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir)\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -162,6 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\DxgiInfoManager.cpp" />
     <ClCompile Include="src\AdapterReader.cpp" />
     <ClCompile Include="src\App.cpp" />
     <ClCompile Include="src\DxTimer.cpp" />
@@ -179,6 +181,7 @@
     <ClCompile Include="src\WinException.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\DxgiInfoManager.h" />
     <ClInclude Include="src\AdapterReader.h" />
     <ClInclude Include="src\App.h" />
     <ClInclude Include="src\DisableUnusedDefine.h" />
