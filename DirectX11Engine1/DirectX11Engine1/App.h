@@ -2,6 +2,7 @@
 #define _APP_H_
 
 #include"Window.h"
+#include"DxTimer.h"
 
 class App
 {
@@ -14,5 +15,6 @@ private:
 	void DoFrame();
 private:
 	Window wnd;
+	DxTimer timer;
 };
 #endif

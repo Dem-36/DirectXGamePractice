@@ -22,5 +22,7 @@ int App::Go()
 
 void App::DoFrame()
 {
+	const float c = sin(timer.Peek());
+	wnd.Gfx().ClearBuffer(c, c, 1.0f);
 	wnd.Gfx().EndFrame();
 }

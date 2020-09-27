@@ -33,8 +33,9 @@ Graphics::Graphics(HWND hWnd)
 	sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	sd.Flags = 0;
 
+	HRESULT hr;
 	for (int i = 0; i < driverLength; i++) {
-		HRESULT hr = D3D11CreateDeviceAndSwapChain(
+		hr = D3D11CreateDeviceAndSwapChain(
 			nullptr,
 			D3D_DRIVER_TYPE_HARDWARE,
 			nullptr,
@@ -51,10 +52,26 @@ Graphics::Graphics(HWND hWnd)
 		if (SUCCEEDED(hr))
 			break;
 	}
+
+	if (FAILED(hr)) {
+
+	}
+
+	//スワップチェーンのテクスチャをサブリソースにアクセスする
+	ID3D11Resource* pBackBuffer = nullptr;
+	pSwapChain->GetBuffer(0, __uuidof(ID3D11Resource), reinterpret_cast<void**>(&pBackBuffer));
+	pDevice->CreateRenderTargetView(
+		pBackBuffer,
+		nullptr,
+		&pRTV
+	);
+	//解放
+	SafeRelease(pBackBuffer);
 }
 
 Graphics::~Graphics()
 {
+	SafeRelease(pRTV);
 	SafeRelease(pDeviceContext);
 	SafeRelease(pSwapChain);
 	SafeRelease(pDevice);
