@@ -1,28 +1,7 @@
 #include "WindowException.h"
 #include<sstream>
 
-WindowException::WindowException(int line, const char* file, HRESULT hr) noexcept
-	:WinException(line,file),hr(hr)
-{
-}
-
-const char* WindowException::what() const noexcept
-{
-	std::ostringstream oss;
-	oss << GetType() << std::endl
-		<< "[Error Code] " << GetErrorCode() << std::endl
-		<< "[Description] " << GetErrorString() << std::endl
-		<< GetOriginString();
-	whatBuffer = oss.str();
-	return whatBuffer.c_str();
-}
-
-const char* WindowException::GetType() const noexcept
-{
-	return "Window Exception";
-}
-
-std::string WindowException::TranslateErrorCode(HRESULT hr) noexcept
+std::string WindowException::Exception::TranslateErrorCode(HRESULT hr) noexcept
 {
 	char* pMsgBuf = nullptr;
 	//Windowsはerror文字列にメモリを割り当て、ポインタがそれを指すようにします
@@ -44,12 +23,39 @@ std::string WindowException::TranslateErrorCode(HRESULT hr) noexcept
 	return errorString;
 }
 
-HRESULT WindowException::GetErrorCode() const noexcept
+WindowException::HrException::HrException(int line, const char* file, HRESULT hr) noexcept
+	:Exception(line,file),hr(hr)
+{
+}
+
+const char* WindowException::HrException::what() const noexcept
+{
+	std::ostringstream oss;
+	oss << GetType() << std::endl
+		<< "[Error Code] 0x" << std::hex << std::uppercase << GetErrorCode()
+		<< std::dec << " (" << (unsigned long)GetErrorCode() << ")" << std::endl
+		<< "[Description] " << GetErrorDescription() << std::endl
+		<< GetOriginString();
+	whatBuffer = oss.str();
+	return whatBuffer.c_str();
+}
+
+const char* WindowException::HrException::GetType() const noexcept
+{
+	return "Window Exception";
+}
+
+HRESULT WindowException::HrException::GetErrorCode() const noexcept
 {
 	return hr;
 }
 
-std::string WindowException::GetErrorString() const noexcept
+std::string WindowException::HrException::GetErrorDescription() const noexcept
 {
-	return TranslateErrorCode(hr);
+	return Exception::TranslateErrorCode(hr);
+}
+
+const char* WindowException::NoGfxException::GetType() const noexcept
+{
+	return "Window Exception [No Graphics]";
 }

@@ -4,6 +4,7 @@
 #include<exception>
 #include<string>
 
+//エラークラスの基底
 class WinException:public std::exception
 {
 public:

@@ -5,15 +5,6 @@
 
 Graphics::Graphics(HWND hWnd)
 {
-	D3D_DRIVER_TYPE driverTypes[] = {
-		D3D_DRIVER_TYPE_HARDWARE,
-		D3D_DRIVER_TYPE_WARP,
-		D3D_DRIVER_TYPE_REFERENCE,
-		D3D_DRIVER_TYPE_UNKNOWN
-	};
-
-	UINT driverLength = ARRAYSIZE(driverTypes);
-
 	DXGI_SWAP_CHAIN_DESC sd = {};
 	//バックバッファの設定
 	sd.BufferDesc.Width = 0;          //バッファの幅
@@ -34,37 +25,29 @@ Graphics::Graphics(HWND hWnd)
 	sd.Flags = 0;
 
 	HRESULT hr;
-	for (int i = 0; i < driverLength; i++) {
-		hr = D3D11CreateDeviceAndSwapChain(
-			nullptr,
-			D3D_DRIVER_TYPE_HARDWARE,
-			nullptr,
-			0,
-			nullptr,
-			0,
-			D3D11_SDK_VERSION,
-			&sd,
-			&pSwapChain,
-			&pDevice,
-			nullptr,
-			&pDeviceContext
-		);
-		if (SUCCEEDED(hr))
-			break;
-	}
 
-	if (FAILED(hr)) {
-
-	}
-
+	GFX_THROW_FAILED(D3D11CreateDeviceAndSwapChain(
+		nullptr,
+		D3D_DRIVER_TYPE_HARDWARE,
+		nullptr,
+		0,
+		nullptr,
+		0,
+		D3D11_SDK_VERSION,
+		&sd,
+		&pSwapChain,
+		&pDevice,
+		nullptr,
+		&pDeviceContext
+	));
 	//スワップチェーンのテクスチャをサブリソースにアクセスする
 	ID3D11Resource* pBackBuffer = nullptr;
-	pSwapChain->GetBuffer(0, __uuidof(ID3D11Resource), reinterpret_cast<void**>(&pBackBuffer));
-	pDevice->CreateRenderTargetView(
+	GFX_THROW_FAILED(pSwapChain->GetBuffer(0, __uuidof(ID3D11Resource), reinterpret_cast<void**>(&pBackBuffer)));
+	GFX_THROW_FAILED(pDevice->CreateRenderTargetView(
 		pBackBuffer,
 		nullptr,
 		&pRTV
-	);
+	));
 	//解放
 	SafeRelease(pBackBuffer);
 }
@@ -79,7 +62,15 @@ Graphics::~Graphics()
 
 void Graphics::EndFrame()
 {
-	pSwapChain->Present(1u, 0u);
+	HRESULT hr;
+	if (FAILED(hr = pSwapChain->Present(1u, 0u))) {
+		if (hr == DXGI_ERROR_DEVICE_REMOVED) {
+			throw GFX_DEVICE_REMOVED_EXCEPT(pDevice->GetDeviceRemovedReason());
+		}
+		else {
+			GFX_THROW_FAILED(hr);
+		}
+	}
 }
 
 void Graphics::ClearBuffer(float r, float g, float b) noexcept {

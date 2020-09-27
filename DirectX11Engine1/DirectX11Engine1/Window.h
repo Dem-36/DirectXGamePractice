@@ -51,8 +51,9 @@ private:
 	std::unique_ptr<Graphics> pGfx;
 };
 
-#define WND_EXCEPT(hr) WindowException(__LINE__,__FILE__,hr)
+#define WND_EXCEPT(hr) WindowException::HrException(__LINE__,__FILE__,(hr))
 //ç≈å„Ç…î≠ê∂ÇµÇΩÉGÉâÅ[Çï‘Ç∑
-#define WND_LAST_EXCEPT() WindowException(__LINE__,__FILE__,GetLastError())
+#define WND_LAST_EXCEPT() WindowException::HrException(__LINE__,__FILE__,GetLastError())
+#define WND_NOGFX_EXCEPT() WindowException::NoGfxException(__LINE__,__FILE__)
 
 #endif

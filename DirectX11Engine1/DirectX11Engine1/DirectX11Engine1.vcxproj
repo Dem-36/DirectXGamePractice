@@ -72,6 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\C++\Chili\DirectX11Engine1\DirectX11Engine1\Scripts\Library;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -165,10 +166,12 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="DxTimer.cpp" />
     <ClCompile Include="ErrorLogger.cpp" />
+    <ClCompile Include="GraphicsException.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="src\dxerr\dxerr.cpp" />
     <ClCompile Include="StringConverter.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WindowException.cpp" />
@@ -181,16 +184,23 @@
     <ClInclude Include="DisableUnusedDefine.h" />
     <ClInclude Include="DxTimer.h" />
     <ClInclude Include="ErrorLogger.h" />
+    <ClInclude Include="GraphicsException.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="ReleaseProcess.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="src\dxerr\dxerr.h" />
     <ClInclude Include="StringConverter.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="WindowException.h" />
     <ClInclude Include="WindowMessageMap.h" />
     <ClInclude Include="WinException.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\dxerr\DXGetErrorDescription.inl" />
+    <None Include="src\dxerr\DXGetErrorString.inl" />
+    <None Include="src\dxerr\DXTrace.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

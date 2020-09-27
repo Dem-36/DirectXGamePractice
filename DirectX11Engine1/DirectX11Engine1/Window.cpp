@@ -59,7 +59,7 @@ Window::Window(int width, int height, const char* name)
 
 	//必要なクライアント長方形のサイズに基づいて、ウィンドウ長方形の必要なサイズを計算します。
 	//次に、ウィンドウの四角形をCreateWindow関数に渡して、クライアント領域が目的のサイズであるウィンドウを作成できます。
-	if (!AdjustWindowRect(&rect, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE)) {
+	if (AdjustWindowRect(&rect, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE) == 0) {
 		throw WND_LAST_EXCEPT();
 	}
 
@@ -132,6 +132,9 @@ std::optional<int> Window::ProcessMessages()
 
 Graphics& Window::Gfx()
 {
+	if (!pGfx) {
+		throw WND_NOGFX_EXCEPT();
+	}
 	return *pGfx;
 }
 

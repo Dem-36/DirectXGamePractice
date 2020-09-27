@@ -2,6 +2,7 @@
 #define _GRAPHICS_H_
 
 #include"DisableUnusedDefine.h"
+#include"GraphicsException.h"
 #include<d3d11.h>
 
 class Graphics
@@ -26,5 +27,9 @@ private:
 	//これをゲーム画面に反映させる
 	ID3D11RenderTargetView* pRTV = nullptr;
 };
+
+//hrはこのマクロを使用前にローカルとして宣言しておく
+#define GFX_THROW_FAILED(hrcall) if(FAILED( hr = (hrcall) ) ) throw GraphicsException::HrException(__LINE__,__FILE__,hr)
+#define GFX_DEVICE_REMOVED_EXCEPT(hr) GraphicsException::DeviceRemovedException(__LINE__,__FILE__,(hr) )
 
 #endif

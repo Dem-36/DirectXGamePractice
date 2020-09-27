@@ -1,18 +1,14 @@
-#ifndef _WINDOWEXCEPTION_H_
-#define _WINDOWEXCEPTION_H_
+#ifndef _GRAPHICSEXCEPTION_H_
+#define _GRAPHICSEXCEPTION_H_
 
 #include"DisableUnusedDefine.h"
 #include"WinException.h"
 
-class WindowException
+class GraphicsException
 {
 public:
 	class Exception :public WinException {
-		//Exceptionを継承するやつにWinExceptionを省略する
 		using WinException::WinException;
-	public:
-		//HRESULTのエラー内容を文字列に変換する
-		static std::string TranslateErrorCode(HRESULT hr)noexcept;
 	};
 
 	class HrException :public Exception {
@@ -24,15 +20,16 @@ public:
 		const char* GetType()const noexcept override;
 		//HRESULTを返す
 		HRESULT GetErrorCode()const noexcept;
+		std::string GetErrorString()const noexcept;
 		//HRESULTのエラー文を文字列に変換したものを返す
 		std::string GetErrorDescription()const noexcept;
 	private:
 		HRESULT hr;
 	};
 
-	class NoGfxException :public Exception {
+	class DeviceRemovedException :public HrException {
+		using HrException::HrException;
 	public:
-		using Exception::Exception;
 		const char* GetType()const noexcept override;
 	};
 };

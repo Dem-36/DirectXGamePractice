@@ -22,6 +22,9 @@
     <Filter Include="Utility\Input">
       <UniqueIdentifier>{f62a52ff-fef8-47f5-839c-a7682da5b1ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility\DxError">
+      <UniqueIdentifier>{b67843f2-e99a-4849-bcf0-2abe977a7a42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StringConverter.cpp">
@@ -62,6 +65,12 @@
     </ClCompile>
     <ClCompile Include="Graphics.cpp">
       <Filter>DirectX11</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsException.cpp">
+      <Filter>Utility\Error</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dxerr\dxerr.cpp">
+      <Filter>Utility\DxError</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,5 +119,22 @@
     <ClInclude Include="Graphics.h">
       <Filter>DirectX11</Filter>
     </ClInclude>
+    <ClInclude Include="GraphicsException.h">
+      <Filter>Utility\Error</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dxerr\dxerr.h">
+      <Filter>Utility\DxError</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\dxerr\DXGetErrorDescription.inl">
+      <Filter>Utility\DxError</Filter>
+    </None>
+    <None Include="src\dxerr\DXGetErrorString.inl">
+      <Filter>Utility\DxError</Filter>
+    </None>
+    <None Include="src\dxerr\DXTrace.inl">
+      <Filter>Utility\DxError</Filter>
+    </None>
   </ItemGroup>
 </Project>
