@@ -1,7 +1,9 @@
 #include "Graphics.h"
-#include"ReleaseProcess.h"
 #include"AdapterReader.h"
 #include<vector>
+
+//このcpp内のみ省略
+namespace wrl = Microsoft::WRL;
 
 
 //hrはこのマクロを使用前にローカルとして宣言しておく
@@ -63,19 +65,9 @@ Graphics::Graphics(HWND hWnd)
 	));
 
 	//スワップチェーンのテクスチャをサブリソースにアクセスする
-	ID3D11Resource* pBackBuffer = nullptr;
-	GFX_THROW_INFO(pSwapChain->GetBuffer(0, __uuidof(ID3D11Resource), reinterpret_cast<void**>(&pBackBuffer)));
-	GFX_THROW_INFO(pDevice->CreateRenderTargetView(nullptr,nullptr,&pRTV));
-	//解放
-	SafeRelease(pBackBuffer);
-}
-
-Graphics::~Graphics()
-{
-	SafeRelease(pRTV);
-	SafeRelease(pDeviceContext);
-	SafeRelease(pSwapChain);
-	SafeRelease(pDevice);
+	wrl::ComPtr<ID3D11Resource> pBackBuffer;
+	GFX_THROW_INFO(pSwapChain->GetBuffer(0, __uuidof(ID3D11Resource), &pBackBuffer));
+	GFX_THROW_INFO(pDevice->CreateRenderTargetView(pBackBuffer.Get(), nullptr, &pRTV));
 }
 
 void Graphics::EndFrame()
@@ -97,5 +89,5 @@ void Graphics::EndFrame()
 
 void Graphics::ClearBuffer(float r, float g, float b) noexcept {
 	const float color[] = { r,g,b,1.0f };
-	pDeviceContext->ClearRenderTargetView(pRTV, color);
+	pDeviceContext->ClearRenderTargetView(pRTV.Get(), color);
 }
