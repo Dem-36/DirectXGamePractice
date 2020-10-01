@@ -25,6 +25,9 @@
     <Filter Include="Utility\DxError">
       <UniqueIdentifier>{b67843f2-e99a-4849-bcf0-2abe977a7a42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{eae81b10-1f29-45a7-92f2-faebb8093ec7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\dxerr\dxerr.cpp">
@@ -142,5 +145,10 @@
     <None Include="src\dxerr\DXTrace.inl">
       <Filter>Utility\DxError</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="VertexShader.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

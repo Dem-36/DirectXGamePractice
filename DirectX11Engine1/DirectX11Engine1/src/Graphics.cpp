@@ -1,6 +1,7 @@
 #include "Graphics.h"
 #include"AdapterReader.h"
 #include<vector>
+#include<d3dcompiler.h>
 
 //‚±‚Ìcpp“à‚Ì‚ÝÈ—ª
 namespace wrl = Microsoft::WRL;
@@ -127,5 +128,14 @@ void Graphics::DrawTriangle()
 	const UINT offset = 0u;
 	pDeviceContext->IASetVertexBuffers(0u,1u, &pVertexBuffer, &stride, &offset);
 
-	GFX_THROW_INFO_ONLY(pDeviceContext->Draw(3u, 0u));
+	//create vertex shader
+	wrl::ComPtr<ID3D11VertexShader> pVertexShader;
+	wrl::ComPtr<ID3DBlob> pBlob;
+	GFX_THROW_INFO(D3DReadFileToBlob(L"VertexShader.cso", &pBlob));
+	GFX_THROW_INFO(pDevice->CreateVertexShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pVertexShader));
+
+	//ƒoƒCƒ“ƒh
+	pDeviceContext->VSSetShader(pVertexShader.Get(), nullptr, 0u);
+
+	GFX_THROW_INFO_ONLY(pDeviceContext->Draw((UINT)std::size(vertices), 0u));
 }
