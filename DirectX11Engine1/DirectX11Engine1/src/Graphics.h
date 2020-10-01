@@ -18,6 +18,8 @@ public:
 
 	//画面のクリア
 	void ClearBuffer(float r, float g, float b)noexcept;
+	//三角形の描画
+	void DrawTriangle();
 private:
 #ifndef NDEBUG
 	DxgiInfoManager infoManager;

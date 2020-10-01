@@ -37,6 +37,18 @@ public:
 	private:
 		std::string reason;
 	};
+
+	class InfoException :public Exception {
+	public:
+		InfoException(int line, const char* file, std::vector<std::string> infoMsgs)noexcept;
+		//エラー文を返す
+		const char* what()const noexcept override;
+		//エラータイプ
+		const char* GetType() const noexcept override;
+		std::string GetErrorInfo()const noexcept;
+	private:
+		std::string info;
+	};
 };
 
 #endif
