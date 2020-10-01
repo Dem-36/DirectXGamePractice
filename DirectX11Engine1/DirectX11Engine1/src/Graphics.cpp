@@ -110,6 +110,7 @@ void Graphics::DrawTriangle()
 		{-0.5f,-0.5f}
 	};
 
+	//頂点バッファの作成
 	wrl::ComPtr<ID3D11Buffer> pVertexBuffer;
 	D3D11_BUFFER_DESC bd = {};
 	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
@@ -126,16 +127,54 @@ void Graphics::DrawTriangle()
 	//パイプラインにバインド
 	const UINT stride = sizeof(Vertex);
 	const UINT offset = 0u;
-	pDeviceContext->IASetVertexBuffers(0u,1u, &pVertexBuffer, &stride, &offset);
+	pDeviceContext->IASetVertexBuffers(0u,1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
+
+	//create pixel shader
+	wrl::ComPtr<ID3D11PixelShader> pPixelShader;
+	wrl::ComPtr<ID3DBlob> pBlob;
+	GFX_THROW_INFO(D3DReadFileToBlob(L"shaders\\PixelShader.cso", &pBlob));
+	GFX_THROW_INFO(pDevice->CreatePixelShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pPixelShader));
+
+	pDeviceContext->PSSetShader(pPixelShader.Get(), nullptr, 0u);
 
 	//create vertex shader
 	wrl::ComPtr<ID3D11VertexShader> pVertexShader;
-	wrl::ComPtr<ID3DBlob> pBlob;
-	GFX_THROW_INFO(D3DReadFileToBlob(L"VertexShader.cso", &pBlob));
+	GFX_THROW_INFO(D3DReadFileToBlob(L"shaders\\VertexShader.cso", &pBlob));
 	GFX_THROW_INFO(pDevice->CreateVertexShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pVertexShader));
 
 	//バインド
 	pDeviceContext->VSSetShader(pVertexShader.Get(), nullptr, 0u);
+
+	//InputLayoutの作成
+    //頂点バッファと頂点シェーダーの入力情報を関連付ける
+	wrl::ComPtr<ID3D11InputLayout> pInoutLayout;
+	const D3D11_INPUT_ELEMENT_DESC ied[] = {
+		{"Position",0,DXGI_FORMAT_R32G32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0}
+	};
+	GFX_THROW_INFO(pDevice->CreateInputLayout(
+		ied,
+		(UINT)std::size(ied),
+		pBlob->GetBufferPointer(),
+		pBlob->GetBufferSize(),
+		&pInoutLayout
+	));
+
+	pDeviceContext->IASetInputLayout(pInoutLayout.Get());
+
+	pDeviceContext->OMSetRenderTargets(1u, pRTV.GetAddressOf(), nullptr);
+
+	pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	//ビューポート設定(描画範囲指定)
+	D3D11_VIEWPORT vp;
+	vp.Width = 800;
+	vp.Height = 600;
+	vp.MinDepth = 0;
+	vp.MaxDepth = 1;
+	vp.TopLeftX = 0;
+	vp.TopLeftY = 0;
+	//設定
+	pDeviceContext->RSSetViewports(1u, &vp);
 
 	GFX_THROW_INFO_ONLY(pDeviceContext->Draw((UINT)std::size(vertices), 0u));
 }
