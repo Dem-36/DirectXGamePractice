@@ -1,12 +1,12 @@
 struct appdata
 {
     float2 vertex : Position;
-    float3 color : Color;
+    float4 color : Color;
 };
 
 struct v2f
 {
-    float3 color : Color;
+    float4 color : Color;
     //SV_Positionのセマンティクスを使用した場合、
     //型はfloat4でなくてはいけない
     float4 position : SV_Position;

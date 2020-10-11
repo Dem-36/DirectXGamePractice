@@ -102,14 +102,17 @@ void Graphics::DrawTriangle()
 	//頂点情報と色情報
 	struct Vertex {
 		float x, y;
-		float r, g, b;
+		//float r, g, b; 各4byteずつかかる
+
+		//0～255で表現する
+		unsigned char r, g, b, a;
 	};
 
 	//頂点バッファの作成
 	const Vertex vertices[] = {
-		{0.0f,0.5f,1.0f,0.0f,0.0f},
-		{0.5f,-0.5f,0.0f,1.0f,0.0f},
-		{-0.5f,-0.5f,0.0f,0.0f,1.0f},
+		{0.0f,0.5f,255,0,0,0},
+		{0.5f,-0.5f,0,255,0,0},
+		{-0.5f,-0.5f,0,0,255,0},
 	};
 
 	//頂点バッファの作成
@@ -153,7 +156,7 @@ void Graphics::DrawTriangle()
 	wrl::ComPtr<ID3D11InputLayout> pInoutLayout;
 	const D3D11_INPUT_ELEMENT_DESC ied[] = {
 		{"Position",0,DXGI_FORMAT_R32G32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
-		{"Color",0,DXGI_FORMAT_R32G32B32_FLOAT,0,D3D11_APPEND_ALIGNED_ELEMENT,D3D11_INPUT_PER_VERTEX_DATA,0},
+		{"Color",0,DXGI_FORMAT_R8G8B8A8_UNORM,0,D3D11_APPEND_ALIGNED_ELEMENT,D3D11_INPUT_PER_VERTEX_DATA,0},
 	};
 	//作成
 	GFX_THROW_INFO(pDevice->CreateInputLayout(
