@@ -101,18 +101,37 @@ void Graphics::DrawTriangle()
 
 	//頂点情報と色情報
 	struct Vertex {
-		float x, y;
-		//float r, g, b; 各4byteずつかかる
 
-		//0～255で表現する
-		unsigned char r, g, b, a;
+		struct {
+			float x;
+			float y;
+		}position;
+		struct {
+			unsigned char r;
+			unsigned char g;
+			unsigned char b;
+			unsigned char a;
+		}color;
 	};
 
 	//頂点バッファの作成
-	const Vertex vertices[] = {
+	Vertex vertices[] = {
 		{0.0f,0.5f,255,0,0,0},
 		{0.5f,-0.5f,0,255,0,0},
 		{-0.5f,-0.5f,0,0,255,0},
+
+		{0.0f,0.5f,255,0,0,0},
+		{-0.5f,-0.5f,0,255,0,0},
+		{-0.3f,0.3f,0,0,255,0},
+
+		{0.0f,0.5f,255,0,0,0},
+		{0.3f,0.3f,0,255,0,0},
+		{0.5f,-0.5f,0,0,255,0},
+
+		{0.0f,-0.8f,255,0,0,0},
+		{-0.5f,-0.5f,0,255,0,0},
+		{0.5f,-0.5f,0,0,255,0},
+
 	};
 
 	//頂点バッファの作成
