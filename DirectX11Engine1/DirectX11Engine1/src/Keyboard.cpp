@@ -6,7 +6,7 @@ bool Keyboard::KeyIsPressed(unsigned char keyCode) const noexcept
 }
 
 //キーの読み込み
-Keyboard::Event Keyboard::ReadKey() noexcept
+std::optional<Keyboard::Event> Keyboard::ReadKey() noexcept
 {
 	if (keyBuffer.size() > 0u) {
 		//先頭の要素を取得
@@ -15,9 +15,8 @@ Keyboard::Event Keyboard::ReadKey() noexcept
 		keyBuffer.pop();
 		return e;
 	}
-	else {
-		return Event();
-	}
+
+	return {};
 }
 
 //中身が空 = 要素数が０かどうか
@@ -33,7 +32,7 @@ void Keyboard::FlushKey() noexcept
 }
 
 //char型のキーの読み込み
-char Keyboard::ReadChar() noexcept
+std::optional<char> Keyboard::ReadChar() noexcept
 {
 	if (charBuffer.size() > 0u) {
 		//先頭の要素を取得
@@ -42,9 +41,8 @@ char Keyboard::ReadChar() noexcept
 		charBuffer.pop();
 		return charCode;
 	}
-	else {
-		return 0;
-	}
+	
+	return {};
 }
 
 //中身が空 = 要素数が０かどうか

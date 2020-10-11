@@ -1,5 +1,5 @@
 #include "Mouse.h"
-#include<Windows.h>
+#include"DisableUnusedDefine.h"
 
 std::pair<int, int> Mouse::GetPos() const noexcept
 {
@@ -31,16 +31,15 @@ bool Mouse::RightIsPressed() const noexcept
 	return rightIsPressed;
 }
 
-Mouse::Event Mouse::Read() noexcept
+std::optional<Mouse::Event> Mouse::Read() noexcept
 {
 	if (buffer.size() > 0u) {
 		Mouse::Event e = buffer.front();
 		buffer.pop();
 		return e;
 	}
-	else {
-		return Mouse::Event();
-	}
+	
+	return {};
 }
 
 void Mouse::Flush() noexcept

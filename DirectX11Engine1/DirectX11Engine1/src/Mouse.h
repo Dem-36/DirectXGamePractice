@@ -2,6 +2,7 @@
 #define _MOUSE_H_
 
 #include<queue>
+#include<optional> //無効な値をとることができる
 
 class Mouse
 {
@@ -18,7 +19,6 @@ public:
 			Move,
 			Enter,
 			Leave,
-			Invalid,
 		};
 	private:
 		MouseType type;
@@ -26,18 +26,10 @@ public:
 		bool rightIsPressed;
 		int x, y;
 	public:
-		Event()noexcept
-			:type(MouseType::Invalid), leftIsPressed(false),
-			rightIsPressed(false), x(0), y(0) {
-
-		}
 		Event(MouseType type, const Mouse& parent)noexcept
 			:type(type), leftIsPressed(parent.leftIsPressed),
 			rightIsPressed(parent.rightIsPressed), x(parent.x), y(parent.y) {
 			
-		}
-		bool IsValid()const noexcept {
-			return type != MouseType::Invalid;
 		}
 		MouseType GetType()const noexcept {
 			return type;
@@ -75,7 +67,7 @@ public:
 	bool LeftIsPressed() const noexcept;
 	//右クリックが押されているかどうか
 	bool RightIsPressed() const noexcept;
-	Mouse::Event Read() noexcept;
+	std::optional<Mouse::Event> Read() noexcept;
 	//イベントが空かどうか
 	bool IsEmpty() const noexcept
 	{

@@ -3,6 +3,7 @@
 
 #include<queue>
 #include<bitset>
+#include<optional> //無効な値をとることができる
 
 class Keyboard
 {
@@ -12,14 +13,11 @@ public:
 		enum class KeyType {
 			Press,
 			Release,
-			Invalid,
 		};
 	private:
 		KeyType type;
 		unsigned char code;
 	public:
-		Event()noexcept
-			:type(KeyType::Invalid), code(0u) {}
 		Event(KeyType type, unsigned char code)noexcept
 			:type(type), code(code) {}
 
@@ -31,10 +29,6 @@ public:
 		//キーが離されたかどうか
 		bool IsRelease()const noexcept {
 			return type == KeyType::Release;
-		}
-
-		bool IsValid()const noexcept {
-			return type == KeyType::Invalid;
 		}
 
 		unsigned char GetCode()const noexcept {
@@ -49,12 +43,12 @@ public:
 
 	//キーのイベント
 	bool KeyIsPressed(unsigned char keyCode)const noexcept;
-	Event ReadKey()noexcept;
+	std::optional<Event> ReadKey()noexcept;
 	bool KeyIsEmpty()const noexcept;
 	void FlushKey()noexcept;
 
 	//char型のイベント
-	char ReadChar()noexcept;
+	std::optional<char> ReadChar()noexcept;
 	bool CharIsEmpty()const noexcept;
 	void FlushChar()noexcept;
 	void Flush();
