@@ -1,4 +1,11 @@
-float4 main() : SV_Target
+
+struct v2f
 {
-    return float4(1.0f, 1.0f, 1.0f, 1.0f);
+    float3 color : Color;
+    float4 position : SV_Position;
+};
+
+float4 main(v2f i) : SV_Target
+{
+    return float4(i.color, 1.0f);
 }

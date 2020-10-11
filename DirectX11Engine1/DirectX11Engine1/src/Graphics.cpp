@@ -99,18 +99,17 @@ void Graphics::DrawTriangle()
 {
 	HRESULT hr;
 
+	//頂点情報と色情報
 	struct Vertex {
 		float x, y;
+		float r, g, b;
 	};
 
 	//頂点バッファの作成
 	const Vertex vertices[] = {
-		{0.0f,0.5f},
-		{0.5f,-0.5f},
-		{0.5f,-0.5f},
-		{-0.5f,-0.5f},
-		{-0.5f,-0.5f},
-		{0.0f,0.5f}
+		{0.0f,0.5f,1.0f,0.0f,0.0f},
+		{0.5f,-0.5f,0.0f,1.0f,0.0f},
+		{-0.5f,-0.5f,0.0f,0.0f,1.0f},
 	};
 
 	//頂点バッファの作成
@@ -130,7 +129,7 @@ void Graphics::DrawTriangle()
 	//パイプラインにバインド
 	const UINT stride = sizeof(Vertex);
 	const UINT offset = 0u;
-	pDeviceContext->IASetVertexBuffers(0u,1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
+	pDeviceContext->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
 
 	//create pixel shader
 	wrl::ComPtr<ID3D11PixelShader> pPixelShader;
@@ -149,11 +148,14 @@ void Graphics::DrawTriangle()
 	pDeviceContext->VSSetShader(pVertexShader.Get(), nullptr, 0u);
 
 	//InputLayoutの作成
-    //頂点バッファと頂点シェーダーの入力情報を関連付ける
+	//頂点バッファと頂点シェーダーの入力情報を関連付ける
+	//D3D11_APPEND_ALIGNED_ELEMENT = バイト数を自動的に計算してくれる(今回なら前のを見て8uとなる)
 	wrl::ComPtr<ID3D11InputLayout> pInoutLayout;
 	const D3D11_INPUT_ELEMENT_DESC ied[] = {
-		{"Position",0,DXGI_FORMAT_R32G32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0}
+		{"Position",0,DXGI_FORMAT_R32G32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
+		{"Color",0,DXGI_FORMAT_R32G32B32_FLOAT,0,D3D11_APPEND_ALIGNED_ELEMENT,D3D11_INPUT_PER_VERTEX_DATA,0},
 	};
+	//作成
 	GFX_THROW_INFO(pDevice->CreateInputLayout(
 		ied,
 		(UINT)std::size(ied),
@@ -167,7 +169,8 @@ void Graphics::DrawTriangle()
 	pDeviceContext->OMSetRenderTargets(1u, pRTV.GetAddressOf(), nullptr);
 
 	//D3D11_PRIMITIVE_TOPOLOGY_LINELISTで線になる
-	pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+	//D3D11_PRIMITIVE_TOPOLOGY_LINESTRIPで線画隣接してると認識させれる
+	pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	//ビューポート設定(描画範囲指定)
 	D3D11_VIEWPORT vp;
