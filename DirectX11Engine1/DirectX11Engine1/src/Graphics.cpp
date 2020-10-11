@@ -208,12 +208,12 @@ void Graphics::DrawTriangle()
 
 	//ビューポート設定(描画範囲指定)
 	D3D11_VIEWPORT vp;
-	vp.Width = 800;
-	vp.Height = 600;
-	vp.MinDepth = 0;
-	vp.MaxDepth = 1;
-	vp.TopLeftX = 0;
-	vp.TopLeftY = 0;
+	vp.Width = 800;   //描画する画面の幅
+	vp.Height = 600;  //描画する画面の高さ
+	vp.MinDepth = 0;  //最小深度値
+	vp.MaxDepth = 1;  //最大深度値
+	vp.TopLeftX = 0;  //Viewportの原点_X
+	vp.TopLeftY = 0;  //Viewportの原点_Y
 	//設定
 	pDeviceContext->RSSetViewports(1u, &vp);
 
