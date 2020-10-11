@@ -107,7 +107,10 @@ void Graphics::DrawTriangle()
 	const Vertex vertices[] = {
 		{0.0f,0.5f},
 		{0.5f,-0.5f},
-		{-0.5f,-0.5f}
+		{0.5f,-0.5f},
+		{-0.5f,-0.5f},
+		{-0.5f,-0.5f},
+		{0.0f,0.5f}
 	};
 
 	//頂点バッファの作成
@@ -163,7 +166,8 @@ void Graphics::DrawTriangle()
 
 	pDeviceContext->OMSetRenderTargets(1u, pRTV.GetAddressOf(), nullptr);
 
-	pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	//D3D11_PRIMITIVE_TOPOLOGY_LINELISTで線になる
+	pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 
 	//ビューポート設定(描画範囲指定)
 	D3D11_VIEWPORT vp;
